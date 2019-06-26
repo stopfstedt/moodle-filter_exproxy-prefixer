@@ -1,6 +1,6 @@
 # UCSF EZProxy Filter for Moodle
 
-A Moodle [filter](https://docs.moodle.org/dev/Filters) that prefixes URLs and DOIs with UCSF's EZProxy URL.
+A Moodle [filter](https://docs.moodle.org/dev/Filters) that prefixes URLs with UCSF's EZProxy URL.
 
 ## Installation
 
