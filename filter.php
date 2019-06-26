@@ -25,6 +25,9 @@ class filter_ucsfezproxy extends moodle_text_filter {
      */
     const URL_REGEX = "%(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?%iu";
 
+    /**
+     * @inheritdoc
+     */
     function filter($text, array $options = array()) {
 
         // short circuit this if no/empty text is given.
@@ -35,7 +38,7 @@ class filter_ucsfezproxy extends moodle_text_filter {
         // find and prefix all URLs in the given text.
         $text = preg_replace(self::URL_REGEX, self::PROXY_PREFIX . '${0}', $text);
 
-        // cheeky play here - eliminate double-prefixed URLs.
+        // eliminate double-prefixed URLs.
         $text = str_ireplace(self::PROXY_PREFIX . self::PROXY_PREFIX, self::PROXY_PREFIX, $text);
 
         return $text;
