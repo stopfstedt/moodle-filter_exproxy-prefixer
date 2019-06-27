@@ -16,7 +16,7 @@ class filter_ucsfezproxy extends moodle_text_filter {
     /**
      * @var string PROXY_PREFIX
      */
-    const PROXY_PREFIX = "https://ucsf.idm.oclc.org/login?url=";
+    const DEFAULT_PROXY_PREFIX = "https://ucsf.idm.oclc.org/login?url=";
 
     /**
      * Face-melting regular expression for matching any and all URLs.
@@ -36,10 +36,10 @@ class filter_ucsfezproxy extends moodle_text_filter {
         }
 
         // find and prefix all URLs in the given text.
-        $text = preg_replace(self::URL_REGEX, self::PROXY_PREFIX . '${0}', $text);
+        $text = preg_replace(self::URL_REGEX, self::DEFAULT_PROXY_PREFIX . '${0}', $text);
 
         // eliminate double-prefixed URLs.
-        $text = str_ireplace(self::PROXY_PREFIX . self::PROXY_PREFIX, self::PROXY_PREFIX, $text);
+        $text = str_ireplace(self::DEFAULT_PROXY_PREFIX . self::DEFAULT_PROXY_PREFIX, self::DEFAULT_PROXY_PREFIX, $text);
 
         return $text;
     }
