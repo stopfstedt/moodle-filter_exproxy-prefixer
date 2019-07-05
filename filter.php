@@ -19,11 +19,23 @@ class filter_ucsfezproxy extends moodle_text_filter {
     const DEFAULT_PROXY_PREFIX = "https://ucsf.idm.oclc.org/login?url=";
 
     /**
-     * Face-melting regular expression for matching any and all URLs.
-     * @var string URL_REGEX
-     * @link http://urlregex.com/
+     * Face-melting regular expression that matches any valid Digital Object Identifier (DOI) URL.
+     * What does that mean?
+     * It means that the given URL must be a doi.org or doi.info (sub-)domain,
+     * and the URL's path must be a valid DOI.
+     *
+     * Matching examples:
+     *   http://doi.org/10.1109/5.771073
+     *   https://doi.org/10.1109/5.771073
+     *   http://doi.info/10.1109/5.771073
+     *   https://doi.info/10.1109/5.771073
+     *   https://www.doi.org/10.1109/5.771073
+     *   https://dx.doi.org/10.1109/5.771073
+     *
+     * @var string DOI_URL_REGEX
+     * @link https://www.crossref.org/blog/dois-and-matching-regular-expressions/
      */
-    const URL_REGEX = "%(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?%iu";
+    const DOI_URL_REGEX = "%https?://([^\.]+\.)?doi\.(info|org)/((10\.\d{4,9}/[-._;()/:A-Z0-9]+)|(10\.1002/[^\s]+)|(10\.\d{4}/\d+-\d+X?(\d+)\d+<[\d\w]+:[\d\w]*>\d+\.\d+\.\w+;\d)|(10\.1021/\w\w\d++)|(10\.1207/[\w\d]+\&\d+_\d+))%iu";
 
     /**
      * @inheritdoc
@@ -39,7 +51,7 @@ class filter_ucsfezproxy extends moodle_text_filter {
         $prefix_url = trim(get_config('filter_ucsfezproxy', 'prefixurl')) ?: self::DEFAULT_PROXY_PREFIX;
 
         // find and prefix all URLs in the given text.
-        $text = preg_replace(self::URL_REGEX, $prefix_url . '${0}', $text);
+        $text = preg_replace(self::DOI_URL_REGEX, $prefix_url . '${0}', $text);
 
         // eliminate double-prefixed URLs.
         $text = str_ireplace($prefix_url . $prefix_url, $prefix_url, $text);
