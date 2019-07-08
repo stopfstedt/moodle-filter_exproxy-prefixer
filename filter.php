@@ -35,7 +35,7 @@ class filter_ucsfezproxy extends moodle_text_filter {
      * @var string DOI_URL_REGEX
      * @link https://www.crossref.org/blog/dois-and-matching-regular-expressions/
      */
-    const DOI_URL_REGEX = "%(?:(?:https?)://)(?:[^\.]+\.)?doi\.(info|org)/((10\.\d{4,9}/[-._;()/:A-Z0-9]+)|(10\.1002/[^\s]+)|(10\.\d{4}/\d+-\d+X?(\d+)\d+<[\d\w]+:[\d\w]*>\d+\.\d+\.\w+;\d)|(10\.1021/\w\w\d++)|(10\.1207/[\w\d]+\&\d+_\d+))%iu";
+    const DOI_URL_REGEX = "%https?://([^\.]+\.)?doi\.(info|org)/((10\.\d{4,9}/[-._;()/:A-Z0-9]+)|(10\.1002/[^\s]+)|(10\.\d{4}/\d+-\d+X?(\d+)\d+<[\d\w]+:[\d\w]*>\d+\.\d+\.\w+;\d)|(10\.1021/\w\w\d++)|(10\.1207/[\w\d]+\&\d+_\d+))%iu";
 
     /**
      * @inheritdoc
