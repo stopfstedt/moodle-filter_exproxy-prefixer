@@ -6,6 +6,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once $CFG->dirroot.'/filter/ucsfezproxy/filter.php';
+
 if ($ADMIN->fulltree) {
     $settings->add(
         new admin_setting_configtext(
