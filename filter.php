@@ -54,7 +54,11 @@ class filter_ucsfezproxy extends moodle_text_filter {
         . ")%iu";
 
     /**
-     * @inheritdoc
+     * Searches for DOI URLs in a given text and pre-fixes them with UCSF's EZProxy URL.
+     *
+     * @param string $text some HTML content to process.
+     * @param array $options options passed to the filters
+     * @return string the HTML content after the filtering has been applied.
      * @throws dml_exception
      */
     public function filter($text, array $options = []) {

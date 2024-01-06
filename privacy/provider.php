@@ -17,7 +17,9 @@
 /**
  * Privacy Subsystem implementation for filter_ucsfezproxy.
  *
- * @package filter_ucsfezproxy
+ * @package    filter_ucsfezproxy
+ * @copyright  The Regents of the University of California
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace filter_ucsfezproxy\privacy;
 
@@ -33,7 +35,7 @@ use core_privacy\local\metadata\null_provider;
 class provider implements null_provider {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function get_reason() : string {
         return 'privacy:metadata';
