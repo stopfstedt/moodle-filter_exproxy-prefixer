@@ -1,15 +1,25 @@
 <?php
-/**
- *
- * A filter for prefixing URLs with UCSF's EZProxy URL.
- *
- * @package filter
- * @subpackage ucsfezproxy
- */
-defined('MOODLE_INTERNAL') || die();
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class filter_ucsfezproxy
+ * A filter for prefixing URLs with UCSF's EZProxy URL.
+ *
+ * @package    filter_ucsfezproxy
+ * @copyright  The Regents of the University of California
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_ucsfezproxy extends moodle_text_filter {
 
@@ -35,26 +45,31 @@ class filter_ucsfezproxy extends moodle_text_filter {
      * @var string DOI_URL_REGEX
      * @link https://www.crossref.org/blog/dois-and-matching-regular-expressions/
      */
-    const DOI_URL_REGEX = "%https?://([^\.]+\.)?doi\.(info|org)/((10\.\d{4,9}/[-._;()/:A-Z0-9]+)|(10\.1002/[^\s]+)|(10\.\d{4}/\d+-\d+X?(\d+)\d+<[\d\w]+:[\d\w]*>\d+\.\d+\.\w+;\d)|(10\.1021/\w\w\d++)|(10\.1207/[\w\d]+\&\d+_\d+))%iu";
+     const DOI_URL_REGEX = "%https?://([^\.]+\.)?doi\.(info|org)/("
+        . "(10\.\d{4,9}/[-._;()/:A-Z0-9]+)"
+        . "|(10\.1002/[^\s]+)"
+        . "|(10\.\d{4}/\d+-\d+X?(\d+)\d+<[\d\w]+:[\d\w]*>\d+\.\d+\.\w+;\d)"
+        . "|(10\.1021/\w\w\d++)"
+        . "|(10\.1207/[\w\d]+\&\d+_\d+)"
+        . ")%iu";
 
     /**
      * @inheritdoc
      * @throws dml_exception
      */
-    function filter($text, array $options = array()) {
-
-        // short circuit this if no/empty text is given.
-        if (!is_string($text) or empty($text)) {
+    public function filter($text, array $options = []) {
+        // Short circuit this if no/empty text is given.
+        if (!is_string($text) || empty($text)) {
             return $text;
         }
 
-        $prefix_url = trim(get_config('filter_ucsfezproxy', 'prefixurl')) ?: self::DEFAULT_PROXY_PREFIX;
+        $prefixurl = trim(get_config('filter_ucsfezproxy', 'prefixurl')) ?: self::DEFAULT_PROXY_PREFIX;
 
-        // find and prefix all URLs in the given text.
-        $text = preg_replace(self::DOI_URL_REGEX, $prefix_url . '${0}', $text);
+        // Find and prefix all URLs in the given text.
+        $text = preg_replace(self::DOI_URL_REGEX, $prefixurl . '${0}', $text);
 
-        // eliminate double-prefixed URLs.
-        $text = str_ireplace($prefix_url . $prefix_url, $prefix_url, $text);
+        // Eliminate double-prefixed URLs.
+        $text = str_ireplace($prefixurl . $prefixurl, $prefixurl, $text);
 
         return $text;
     }
