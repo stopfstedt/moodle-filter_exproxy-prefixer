@@ -24,7 +24,6 @@
 namespace filter_ucsfezproxy\privacy;
 
 use core_privacy\local\metadata\null_provider;
-
 /**
  * Privacy Subsystem for filter_ucsfezproxy implementing null_provider.
  *
