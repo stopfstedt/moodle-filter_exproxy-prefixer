@@ -57,6 +57,7 @@ final class filter_test extends advanced_testcase {
     }
 
     protected function tearDown(): void {
+        parent::tearDown();
         unset($this->filter);
     }
 
