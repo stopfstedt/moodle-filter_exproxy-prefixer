@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2024061000;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2023100400;        // Requires this Moodle version.
+$plugin->version   = 2024091100;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires  = 2024041600;        // Requires this Moodle version.
 $plugin->component = 'filter_ucsfezproxy';     // Full name of the plugin (used for diagnostics).
