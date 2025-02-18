@@ -26,7 +26,6 @@ namespace filter_ucsfezproxy;
 
 use advanced_testcase;
 use context_system;
-use filter_ucsfezproxy;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -41,19 +40,19 @@ require_once($CFG->dirroot . '/filter/ucsfezproxy/filter.php');
  * @package    filter_ucsfezproxy
  * @copyright  The Regents of the University of California
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers \filter_ucsfezproxy
+ * @covers \filter_ucsfezproxy\text_filter
  */
 final class filter_test extends advanced_testcase {
 
     /**
-     * @var filter_ucsfezproxy The EZProxy filter object under test.
+     * @var text_filter The EZProxy filter object under test.
      */
-    protected filter_ucsfezproxy $filter;
+    protected text_filter $filter;
 
     protected function setUp(): void {
         parent::setUp();
         $this->resetAfterTest(true);
-        $this->filter = new filter_ucsfezproxy(context_system::instance(), []);
+        $this->filter = new text_filter(context_system::instance(), []);
     }
 
     protected function tearDown(): void {
