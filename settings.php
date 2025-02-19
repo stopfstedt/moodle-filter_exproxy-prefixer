@@ -24,7 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/filter/ucsfezproxy/filter.php');
+require_once($CFG->dirroot.'/filter/ucsfezproxy/classes/text_filter.php');
+
+use filter_ucsfezproxy\text_filter;
 
 if ($ADMIN->fulltree) {
     $settings->add(
@@ -32,7 +34,7 @@ if ($ADMIN->fulltree) {
             'filter_ucsfezproxy/prefixurl',
             new lang_string('prefixurl', 'filter_ucsfezproxy'),
             new lang_string('prefixurl_help', 'filter_ucsfezproxy'),
-            filter_ucsfezproxy::DEFAULT_PROXY_PREFIX,
+            text_filter::DEFAULT_PROXY_PREFIX,
             PARAM_URL
         )
     );
